@@ -14,15 +14,15 @@ class IOValue {
 public:
 	IOValue(double CurrentValue, double RangeLowerLimit, double RangeUpperLimit);
 	virtual ~IOValue();
-	void setRange(double &RangeLowerLimit, double &RangeUpperLimit);
-	void getRange(double &RangeLowerLimit, double &RangeUpperLimit);
+	void setRange(double &setRangeLowerLimit, double &setRangeUpperLimit);
+	void getRange(double &getRangeLowerLimit, double &getRangeUpperLimit);
 	void updateValue(double &CurrentValue);
 	double ShowValue();
 	void ShowValue(double &CurrentValue);
 private:
 	double Value;
-	double RangeUpper;
-	double RangeLower;
+	double RangeUpperLimit;
+	double RangeLowerLimit;
 	double RangeWidth;
 };
 

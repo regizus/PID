@@ -10,12 +10,12 @@
 
 namespace pid_reg {
 
-void IOValue::setRange(double &RangeLowerLimit, double &RangeUpperLimit)
+void IOValue::setRange(double &setRangeLowerLimit, double &setRangeUpperLimit)
 {
-	if(RangeLowerLimit <= RangeUpperLimit)
+	if(setRangeLowerLimit <= setRangeUpperLimit)
 	{
-		this->RangeLower = RangeLowerLimit;
-		this->RangeUpper = RangeUpperLimit;
+		this->RangeLowerLimit = setRangeLowerLimit;
+		this->RangeUpperLimit = setRangeUpperLimit;
 	}
 	else // mismatched range limits
 	{
@@ -24,30 +24,30 @@ void IOValue::setRange(double &RangeLowerLimit, double &RangeUpperLimit)
 		#endif
 		// *********************************
 		#ifndef useExceptionThrowing // correct limits by switching places "upper" and "lower"
-			this->RangeLower = RangeUpperLimit;
-			this->RangeUpper = RangeLowerLimit;
+			this->RangeLowerLimit = setRangeUpperLimit;
+			this->RangeUpperLimit = setRangeLowerLimit;
 		#endif
 	}
 
-	this->RangeWidth = std::abs(RangeUpperLimit-RangeLowerLimit);
+	this->RangeWidth = std::abs(setRangeUpperLimit-setRangeLowerLimit);
 
 	this->updateValue(Value);
 }
 
-void IOValue::getRange(double &RangeLowerLimit, double &RangeUpperLimit)
+void IOValue::getRange(double &getRangeLowerLimit, double &getRangeUpperLimit)
 {
-	RangeLowerLimit = this->RangeLower;
-	RangeUpperLimit = this->RangeUpper;
+	getRangeLowerLimit = this->RangeLowerLimit;
+	getRangeUpperLimit = this->RangeUpperLimit;
 }
 
 void IOValue::updateValue(double &CurrentValue)
 {
-	if((CurrentValue <= this->RangeUpper) && (CurrentValue >= this->RangeLower))
+	if((CurrentValue <= this->RangeUpperLimit) && (CurrentValue >= this->RangeLowerLimit))
 		this->Value = CurrentValue;
-	else if((CurrentValue > this->RangeUpper))
-		this->Value = this->RangeUpper;
+	else if((CurrentValue > this->RangeUpperLimit))
+		this->Value = this->RangeUpperLimit;
 	else
-		this->Value = this->RangeLower;
+		this->Value = this->RangeLowerLimit;
 }
 
 double IOValue::ShowValue()
@@ -60,7 +60,7 @@ void IOValue::ShowValue(double &CurrentValue)
 	CurrentValue = this->Value;
 }
 
-IOValue::IOValue(double CurrentValue, double RangeLowerLimit, double RangeUpperLimit)
+IOValue::IOValue(double CurrentValue = 0, double RangeLowerLimit = 0, double RangeUpperLimit = 0)
 {
 	this->Value = CurrentValue;
 	setRange(RangeLowerLimit, RangeUpperLimit);
