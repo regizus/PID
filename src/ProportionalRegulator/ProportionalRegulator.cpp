@@ -7,7 +7,7 @@
 
 #include "ProportionalRegulator.h"
 
-namespace std {
+namespace pid_reg {
 
 ProportionalRegulator::ProportionalRegulator() {
 	// TODO Auto-generated constructor stub
